@@ -4,7 +4,44 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <title>Gaming Shop</title>
+    <style>
+        #rps_chart {
+            width: 90%;
+            height: 400px;
+            margin: 50px auto;
+            background-color: #1a1a1a;
+            border-radius: 15px;
+            padding: 20px;
+        }
+    </style>
+    <script>
+        google.charts.load('current', {'packages':['corechart']});
+        google.charts.setOnLoadCallback(drawChart);
+        function drawChart() {
+            var data = google.visualization.arrayToDataTable([
+                ['Time', 'Requests per second'],
+                ['10:00', 5],
+                ['10:01', 7],
+                ['10:02', 6],
+                ['10:03', 8],
+                ['10:04', 4],
+                ['10:05', 9]
+            ]);
+            var options = {
+                title: 'RPS (Requests per second)',
+                curveType: 'function',
+                legend: { position: 'bottom' },
+                backgroundColor: '#1a1a1a',
+                colors: ['#48b0ff'],
+                hAxis: { textStyle: { color: '#fff' }, gridlines: { color: '#333' } },
+                vAxis: { textStyle: { color: '#fff' }, gridlines: { color: '#333' } }
+            };
+            var chart = new google.visualization.LineChart(document.getElementById('rps_chart'));
+            chart.draw(data, options);
+        }
+    </script>
 </head>
 <body>
 
@@ -22,30 +59,25 @@
 
     <div class="bg">
         <div class="hero">
+            <div class="hero-text">
+                <h1 class="welcome">WELCOME TO LUGX</h1>
+                <h1 class="best">BEST GAMING SITE</h1>
+                <h1 class="ever">EVER!</h1>
+                <h2 class="info">LUGX Gaming is free Boolstrap 5 HTML CSS website template for your Gaming</h2>
+                <h2 class="info">websites. You can dowloand and use this layout for commercial porposes.</h2>
+                <h2 class="info_">Please, tell your friends about AmirLOGX.</h2>
+                <div class="search">
+                    <input type="text" class="typesomething" placeholder="Type Something...">
+                    <button class="searchbutton">Search Now</button>
+                </div>
+            </div>
 
-    <div class="hero-text">
-        <h1 class="welcome">WELCOME TO LUGX</h1>
-        <h1 class="best">BEST GAMING SITE</h1>
-        <h1 class="ever">EVER!</h1>
-
-        <h2 class="info">LUGX Gaming is free Boolstrap 5 HTML CSS website template for your Gaming</h2>
-        <h2 class="info">websites. You can dowloand and use this layout for commercial porposes.</h2>
-        <h2 class="info_">Please, tell your friends about AmirLOGX.</h2>
-
-        <div class="search">
-            <input type="text" class="typesomething" placeholder="Type Something...">
-            <button class="searchbutton">Search Now</button>
+            <div class="banner-wrap">
+                <img class="banner" src="banner-image.jpg">
+                <span class="price">$22</span>
+                <span class="offer">-40%</span>
+            </div>
         </div>
-    </div>
-
-    <div class="banner-wrap">
-        <img class="banner" src="banner-image.jpg">
-        <span class="price">$22</span>
-        <span class="offer">-40%</span>
-    </div>
-
-</div>
-
     </div>
 </header>
 
@@ -53,5 +85,8 @@
     <a>Welcome</a>
 </div>
 
+<div id="rps_chart"></div>
+
 </body>
 </html>
+
