@@ -5,105 +5,104 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Gaming Shop</title>
 <link rel="stylesheet" href="style.css">
-<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-<style>
-#rps_chart {
-    width: 1000px;
-    max-width: 100%;
-    height: 400px;
-    margin: 50px auto;
-    background-color: white;
-    border-radius: 15px;
-    padding: 20px;
-    box-sizing: border-box;
-}
-</style>
+<script src="https://www.gstatic.com/charts/loader.js"></script>
+
 <script>
-google.charts.load('current', {'packages':['corechart']});
-google.charts.setOnLoadCallback(initChart);
+google.charts.load('current', {packages:['corechart']});
+google.charts.setOnLoadCallback(start);
 
-let rpsData = new google.visualization.DataTable();
-rpsData.addColumn('string', 'Time');
-rpsData.addColumn('number', 'Requests per second');
+let data;
 let chart;
+let options;
 
-function getTime() {
-    let now = new Date();
-    return now.getHours().toString().padStart(2,'0') + ':' +
-           now.getMinutes().toString().padStart(2,'0') + ':' +
-           now.getSeconds().toString().padStart(2,'0');
-}
+function start() {
+    data = new google.visualization.DataTable();
+    data.addColumn('string', 'Time');
+    data.addColumn('number', 'RPS');
 
-function getRPS() {
-    return Math.floor(Math.random() * 10) + 1;
-}
-
-function getOptions() {
-    return {
-        title: 'RPS (Requests per second)',
-        curveType: 'function',
-        legend: { position: 'bottom', textStyle: { color: '#000' } },
-        backgroundColor: 'white',
-        colors: ['#48b0ff'],
-        hAxis: { textStyle: { color: '#000' }, gridlines: { color: '#ccc' } },
-        vAxis: { textStyle: { color: '#000' }, gridlines: { color: '#ccc' } },
-        animation: { duration: 500, easing: 'linear' }
-    };
-}
-
-function initChart() {
-    chart = new google.visualization.LineChart(document.getElementById('rps_chart'));
-    for (let i=0; i<5; i++) {  // стартовые точки, чтобы график не был пустым
-        rpsData.addRow([getTime(), getRPS()]);
+    for (let i = 0; i < 10; i++) {
+        data.addRow([time(), rand()]);
     }
-    chart.draw(rpsData, getOptions());
-    setInterval(addRandomRPS, 1000);
+
+    options = {
+        title: 'Requests per Second',
+        backgroundColor: 'transparent',
+        legend: { position: 'none', textStyle: { color: 'white' } },
+        hAxis: { textStyle: { color: 'white' }, gridlines: { color: '#444' } },
+        vAxis: { textStyle: { color: 'white' }, gridlines: { color: '#444' } },
+        colors: ['#ff6387'],
+        animation: { duration: 400, easing: 'linear' }
+    };
+
+    chart = new google.visualization.LineChart(document.getElementById('rps_chart'));
+    chart.draw(data, options);
+
+    setInterval(update, 1000);
 }
 
-function addRandomRPS() {
-    if (rpsData.getNumberOfRows() > 20) rpsData.removeRow(0);
-    rpsData.addRow([getTime(), getRPS()]);
-    chart.draw(rpsData, getOptions());
+function update() {
+    if (data.getNumberOfRows() > 20) data.removeRow(0);
+    data.addRow([time(), rand()]);
+    chart.draw(data, options);
+}
+
+function time() {
+    const d = new Date();
+    return d.getHours()+':'+d.getMinutes()+':'+d.getSeconds();
+}
+
+function rand() {
+    return Math.floor(Math.random() * 10) + 1;
 }
 </script>
 </head>
+
 <body>
+
 <header>
-<div class="menu">
-<img class="logo" src="logo.png">
-<div class="buttons">
-<button>Home</button>
-<button>Our Shop</button>
-<button>Product Details</button>
-<button>Contact Us</button>
-<button class="sign">Sign In</button>
-</div>
-</div>
-<div class="bg">
-<div class="hero">
-<div class="hero-text">
-<h1 class="welcome">WELCOME TO LUGX</h1>
-<h1 class="best">BEST GAMING SITE</h1>
-<h1 class="ever">EVER!</h1>
-<h2 class="info">LUGX Gaming is free Boolstrap 5 HTML CSS website template for your Gaming</h2>
-<h2 class="info">websites. You can dowloand and use this layout for commercial porposes.</h2>
-<h2 class="info_">Please, tell your friends about AmirLOGX.</h2>
-<div class="search">
-<input type="text" class="typesomething" placeholder="Type Something...">
-<button class="searchbutton">Search Now</button>
-</div>
-</div>
-<div class="banner-wrap">
-<img class="banner" src="banner-image.jpg">
-<span class="price">$22</span>
-<span class="offer">-40%</span>
-</div>
-</div>
-</div>
+    <div class="menu">
+        <img class="logo" src="logo.png">
+        <div class="buttons">
+            <button>Home</button>
+            <button>Our Shop</button>
+            <button>Product Details</button>
+            <button>Contact Us</button>
+            <button class="sign">Sign In</button>
+        </div>
+    </div>
+
+    <div class="bg">
+        <div class="hero">
+
+            <div class="hero-text">
+                <h1 class="welcome">WELCOME TO LUGX</h1>
+                <h1 class="best">BEST GAMING SITE</h1>
+                <h1 class="ever">EVER!</h1>
+
+                <h2 class="info">LUGX Gaming is free Boolstrap 5 HTML CSS website template</h2>
+                <h2 class="info">You can download and use this layout</h2>
+                <h2 class="info_">Please, tell your friends about AmirLOGX.</h2>
+
+                <div class="search">
+                    <input type="text" class="typesomething" placeholder="Type Something...">
+                    <button class="searchbutton">Search Now</button>
+                </div>
+            </div>
+
+            <div class="banner-wrap">
+                <img class="banner" src="banner-image.jpg">
+                <span class="price">$22</span>
+                <span class="offer">-40%</span>
+            </div>
+
+        </div>
+    </div>
 </header>
-<div class="all">
-<a>Welcome</a>
+
+<div class="chart-wrapper">
+    <div id="rps_chart"></div>
 </div>
-<div id="rps_chart"></div>
+
 </body>
 </html>
+
