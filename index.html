@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gaming Shop</title>
     <link rel="stylesheet" href="style.css">
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <title>Gaming Shop</title>
     <style>
         #rps_chart {
             width: 90%;
@@ -19,17 +19,10 @@
     <script>
         google.charts.load('current', {'packages':['corechart']});
         google.charts.setOnLoadCallback(drawChart);
+        let rpsData = [['Time', 'Requests per second']];
         function drawChart() {
-            var data = google.visualization.arrayToDataTable([
-                ['Time', 'Requests per second'],
-                ['10:00', 5],
-                ['10:01', 7],
-                ['10:02', 6],
-                ['10:03', 8],
-                ['10:04', 4],
-                ['10:05', 9]
-            ]);
-            var options = {
+            let data = google.visualization.arrayToDataTable(rpsData);
+            let options = {
                 title: 'RPS (Requests per second)',
                 curveType: 'function',
                 legend: { position: 'bottom' },
@@ -38,13 +31,21 @@
                 hAxis: { textStyle: { color: '#fff' }, gridlines: { color: '#333' } },
                 vAxis: { textStyle: { color: '#fff' }, gridlines: { color: '#333' } }
             };
-            var chart = new google.visualization.LineChart(document.getElementById('rps_chart'));
+            let chart = new google.visualization.LineChart(document.getElementById('rps_chart'));
             chart.draw(data, options);
         }
+        function addRandomRPS() {
+            let now = new Date();
+            let time = now.getHours().toString().padStart(2,'0') + ':' + now.getMinutes().toString().padStart(2,'0') + ':' + now.getSeconds().toString().padStart(2,'0');
+            let rps = Math.floor(Math.random() * 10) + 1;
+            if (rpsData.length > 20) rpsData.splice(1, 1);
+            rpsData.push([time, rps]);
+            drawChart();
+        }
+        setInterval(addRandomRPS, 1000);
     </script>
 </head>
 <body>
-
 <header>
     <div class="menu">
         <img class="logo" src="logo.png">
@@ -56,7 +57,6 @@
             <button class="sign">Sign In</button>
         </div>
     </div>
-
     <div class="bg">
         <div class="hero">
             <div class="hero-text">
@@ -71,7 +71,6 @@
                     <button class="searchbutton">Search Now</button>
                 </div>
             </div>
-
             <div class="banner-wrap">
                 <img class="banner" src="banner-image.jpg">
                 <span class="price">$22</span>
@@ -80,13 +79,10 @@
         </div>
     </div>
 </header>
-
 <div class="all">
     <a>Welcome</a>
 </div>
-
 <div id="rps_chart"></div>
-
 </body>
 </html>
 
