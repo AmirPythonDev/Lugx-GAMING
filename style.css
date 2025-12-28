@@ -174,3 +174,13 @@ button:hover {
     text-align: center;
     padding: 20px 0;
 }
+
+#rps_chart {
+    width: 90%;
+    height: 400px;
+    margin: 50px auto;
+    background-color: #1a1a1a;
+    border-radius: 15px;
+    padding: 20px;
+}
+
